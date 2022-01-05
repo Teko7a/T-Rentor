@@ -23,11 +23,13 @@ public class DataBaseUtil {
     */
    public Connection getCon() throws Exception {
       String jdbcName = "com.mysql.cj.jdbc.Driver";
+//      String jdbcName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
       // 动态加载 ( 反射 )
       Class.forName(jdbcName);
       String dbPassword = "NoTXNorC!@oo77";
       String dbUserName = "root";
       String dbUrl = "jdbc:mysql://localhost:3306/db_RC";
+//      String dbUrl = "jdbc:sqlserver://localhost:1433; DatabaseName=db_rc";
       return DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
    }
 
