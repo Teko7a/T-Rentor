@@ -1,6 +1,5 @@
 package teko7a.DAOs;
 
-import com.sun.tools.javac.Main;
 import teko7a.Models.Car;
 import teko7a.Models.Maintain;
 import teko7a.Utils.OrdersEnum;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 /**
  * @author: tekola (teko7a@github.io)

@@ -1,10 +1,7 @@
 package teko7a.DAOs;
 
-import teko7a.Models.Car;
 import teko7a.Models.Rented;
 import teko7a.Models.Usr;
-import teko7a.Utils.StringUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

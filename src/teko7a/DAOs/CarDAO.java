@@ -1,10 +1,8 @@
 package teko7a.DAOs;
 
-import com.sun.tools.javac.Main;
 import teko7a.Models.Admin;
 import teko7a.Models.Car;
 import teko7a.Models.Maintain;
-import teko7a.Models.Usr;
 import teko7a.Utils.DateUtil;
 import teko7a.Utils.OrdersEnum;
 import teko7a.Utils.StringUtil;

@@ -53,7 +53,7 @@ public class RegisterFrm extends JFrame {
          con = dbUtil.getCon();
          boolean result = usrDAO.hasTwoSameNameUsr(con, name);
          if (result) {
-            StringUtil.log("该用户名已存在！");
+            StringUtil.log("该用户名已存在!");
             this.resetJBActionPerformed();
             return;
          }
@@ -69,7 +69,7 @@ public class RegisterFrm extends JFrame {
 
       // **** 非空判断 以及 长度合法判断 ****
       if (StringUtil.allEmpty(name, idc, rName, tel, password1, password2)) {
-         StringUtil.log("请输入您的信息！\n Please Input your infos!");
+         StringUtil.log("请输入您的信息!\n Please Input your infos!");
          return;
       }
       if (StringUtil.isEmpty(name)) {
@@ -108,7 +108,7 @@ public class RegisterFrm extends JFrame {
 
       // **** 密码合法判断， 不一致应当重置 ****
       if (!password1.equals(password2)) {
-         StringUtil.log("两次输入的密码不一致！");
+         StringUtil.log("两次输入的密码不一致!");
          this.passwordJPF.setText("");
          this.passwordConfirmJPF.setText("");
          return;
@@ -121,13 +121,13 @@ public class RegisterFrm extends JFrame {
          con = dbUtil.getCon();
          int item = usrDAO.register(con, user);
          if (item == 1) {
-            if (order != OrdersEnum.ADD) StringUtil.log("创建新用户 '" + name + "' 成功\n 现在就去登录！");
+            if (order != OrdersEnum.ADD) StringUtil.log("创建新用户 '" + name + "' 成功\n 现在就去登录!");
             else StringUtil.log("创建新用户 '" + name + "' 成功");
 
             this.dispose();
             if (order != OrdersEnum.ADD) FrmUtil.openFrm(new LoginFrm());
          } else {
-            StringUtil.log("创建新用户 '" + name + "' 失败\n 请重试！");
+            StringUtil.log("创建新用户 '" + name + "' 失败\n 请重试!");
             this.resetJBActionPerformed();
          }
       } catch (Exception e) {
@@ -173,7 +173,7 @@ public class RegisterFrm extends JFrame {
 
       //======== this ========
       setTitle("\u6ce8\u518c\u5230T-rentor");
-      var contentPane = getContentPane();
+      Container contentPane = getContentPane();
 
       //---- welcomeJL ----
       welcomeJL.setText("   T-Rentor");
