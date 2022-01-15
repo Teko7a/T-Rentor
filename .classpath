@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src"/>
+
+  <classpathentry kind="lib" path="lib/junit-jupiter-api-5.8.2.jar"/>
+  <classpathentry kind="lib" path="lib/junit-platform-console-standalone-1.8.2.jar"/>
+  <classpathentry kind="lib" path="lib/opentest4j-1.2.0.jar"/>
+
+  <classpathentry kind="output" path="out"/>
+</classpath>
