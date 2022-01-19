@@ -34,7 +34,8 @@ public class Admin extends Person {
    }
 
    // ==== Override ====
-   @Override public String toString() {
+   @Override
+   public String toString() {
       return "Admin" + super.toString();
    }
 }

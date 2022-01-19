@@ -79,7 +79,8 @@ public class MainFrm extends JFrame {
          v.add(rs.getString("adminID"));
          v.add(rs.getString("errorDesc"));
          v.add(rs.getString("stDate"));
-         v.add(rs.getString("edDate") == null ? "<html><font color= \"red\">&lt;null&gt;</font>" : rs.getString("edDate"));
+         v.add(rs.getString("edDate") == null ? "<html><font color= \"red\">&lt;null&gt;</font>"
+               : rs.getString("edDate"));
          v.add(rs.getString("cost"));
          dtm.addRow(v);
       }
@@ -117,7 +118,7 @@ public class MainFrm extends JFrame {
       String tel = this.telJTF.getText();
 
       if (StringUtil.existEmpty(id, name, password, realName, idc, tel)) {
-         StringUtil.log("请输入有效信息！");
+         StringUtil.log("请输入有效信息!");
          return;
       }
       if (StringUtil.isNotEmpty(id)) {
@@ -180,7 +181,7 @@ public class MainFrm extends JFrame {
 
    private void removeJBActionPerformed(ActionEvent evt) {
       if (this.usrJT.getSelectedRow() == -1) {
-         StringUtil.log("请点击左边的表格以选中一名用户！\nPlease click left table so as to select 1 user.");
+         StringUtil.log("请点击左边的表格以选中一名用户!\nPlease click left table so as to select 1 user.");
          return;
       }
       int id = Integer.parseInt((String) this.usrJT.getValueAt(usrJT.getSelectedRow(), 0));
@@ -208,7 +209,7 @@ public class MainFrm extends JFrame {
 
    private void modifyJBActionPerformed() {
       if (this.usrJT.getSelectedRow() == -1) {
-         StringUtil.log("请点击左边的表格以选中一名用户！\nPlease click left table so as to select 1 user.");
+         StringUtil.log("请点击左边的表格以选中一名用户!\nPlease click left table so as to select 1 user.");
          return;
       }
       this.curJTF.setText("");
@@ -229,7 +230,7 @@ public class MainFrm extends JFrame {
          return;
       }
       if (StringUtil.isInvalidIdc(idc)) {
-         StringUtil.log("请输入正确身份证号！");
+         StringUtil.log("请输入正确身份证号!");
          this.idcJTF.setText("");
       }
       if (StringUtil.isEmpty(rName)) {
@@ -295,7 +296,8 @@ public class MainFrm extends JFrame {
    private void fillTableHelper(ResultSet rs, JTable rentedHisTable) throws SQLException {
       DefaultTableModel dtm = (DefaultTableModel) rentedHisTable.getModel();
       dtm.setRowCount(0);
-      // SELECT tu.id, tu.name, tc.id, tc.type, tc.brand, tc.seatNum, tc.license, tc.color, tr.stDate, tr.edDate, tr.dates, tr.cost
+      // SELECT tu.id, tu.name, tc.id, tc.type, tc.brand, tc.seatNum, tc.license,
+      // tc.color, tr.stDate, tr.edDate, tr.dates, tr.cost
       while (rs.next()) {
          Vector<String> v = new Vector<>();
          v.add(String.valueOf(rs.getInt("tu.id")));
@@ -358,7 +360,8 @@ public class MainFrm extends JFrame {
             con = dbUtil.getCon();
             v.add(rentedDao.hasUnreturned(con, usr) ? "1" : "0");
             ResultSet rs1 = rentedDao.countLines(con, usr);
-            while (rs1.next()) v.add(String.valueOf(rs1.getInt("count(1)")));
+            while (rs1.next())
+               v.add(String.valueOf(rs1.getInt("count(1)")));
          } catch (Exception e) {
             e.printStackTrace();
          } finally {
@@ -490,11 +493,12 @@ public class MainFrm extends JFrame {
 
    private void modifyCarJBActionPerformed(ActionEvent evt) {
       if (this.carJT.getSelectedRow() == -1) {
-         StringUtil.log("请点击左边的表格以选中一辆车！\nPlease click left table so as to select 1 car.");
+         StringUtil.log("请点击左边的表格以选中一辆车!\nPlease click left table so as to select 1 car.");
          return;
       }
       Car car = null;
-      while (car == null) car = this.getDetailCar();
+      while (car == null)
+         car = this.getDetailCar();
       Connection con = null;
       try {
          con = dbUtil.getCon();
@@ -529,7 +533,7 @@ public class MainFrm extends JFrame {
 
    private void removeCarJBActionPerformed(ActionEvent evt) {
       if (this.carJT.getSelectedRow() == -1) {
-         StringUtil.log("请点击左边的表格以选中一辆车！\nPlease click left table so as to select 1 car.");
+         StringUtil.log("请点击左边的表格以选中一辆车!\nPlease click left table so as to select 1 car.");
          return;
       }
       int id = Integer.parseInt((String) this.carJT.getValueAt(carJT.getSelectedRow(), 0));
@@ -558,7 +562,8 @@ public class MainFrm extends JFrame {
    private void addCarJBActionPerformed(ActionEvent evt) {
       this.idJTF.setText("");
       Car car = null;
-      while (car == null) car = this.getDetailCar();
+      while (car == null)
+         car = this.getDetailCar();
       Connection con = null;
       try {
          con = dbUtil.getCon();
@@ -634,8 +639,10 @@ public class MainFrm extends JFrame {
       String brandP = this.carBrandJTF.getText();
       String sizeP = this.carSizeJTF.getText();
       String tonsP = this.carTonsJTF.getText();
-      String typeP = "请选择..".equals(this.carTypeJCB.getSelectedItem()) ? null : (String) this.carTypeJCB.getSelectedItem();
-      String colorP = "请选择..".equals(this.carColorJCB.getSelectedItem()) ? null : (String) this.carColorJCB.getSelectedItem();
+      String typeP = "请选择..".equals(this.carTypeJCB.getSelectedItem()) ? null
+            : (String) this.carTypeJCB.getSelectedItem();
+      String colorP = "请选择..".equals(this.carColorJCB.getSelectedItem()) ? null
+            : (String) this.carColorJCB.getSelectedItem();
 
       String seatNumP = this.carSeatNumJTF.getText();
       String costP = this.carFeeJTF.getText();
@@ -647,11 +654,15 @@ public class MainFrm extends JFrame {
          return;
       }
 
-      if (!StringUtil.isPositiveDigit(idP)) idP = "-1";
-      if (!StringUtil.isPositiveDigit(seatNumP)) seatNumP = "-1";
-      if (!StringUtil.isPositiveDigit(costP)) costP = "-1";
+      if (!StringUtil.isPositiveDigit(idP))
+         idP = "-1";
+      if (!StringUtil.isPositiveDigit(seatNumP))
+         seatNumP = "-1";
+      if (!StringUtil.isPositiveDigit(costP))
+         costP = "-1";
 
-      if (StringUtil.isEmpty(statusP)) statusP = "-1";
+      if (StringUtil.isEmpty(statusP))
+         statusP = "-1";
       else {
          switch (Objects.requireNonNull(statusP)) {
             case "请选择.." -> statusP = "-2";
@@ -734,7 +745,8 @@ public class MainFrm extends JFrame {
       String stDate = (String) this.toFixJT.getValueAt(row, 4);
       String edDate = DateUtil.getToday();
       int cost = Integer.parseInt(this.maintainCostJTF.getText());
-      Maintain maintain = new Maintain(Integer.parseInt((String) this.toFixJT.getValueAt(row, 0)), carId, adminId, errorDesc, stDate, edDate, cost);
+      Maintain maintain = new Maintain(Integer.parseInt((String) this.toFixJT.getValueAt(row, 0)), carId, adminId,
+            errorDesc, stDate, edDate, cost);
       Connection con = null;
       try {
          con = dbUtil.getCon();
@@ -904,41 +916,44 @@ public class MainFrm extends JFrame {
       JButton logoutJB = new JButton();
       todayJL = new JLabel();
 
-      //======== this ========
+      // ======== this ========
       setTitle("\u6253\u9020\u66f4\u597d\u7528\u7684T-rentor\uff01");
       setResizable(false);
       var contentPane = getContentPane();
 
-      //======== tabbedPane1 ========
+      // ======== tabbedPane1 ========
       {
 
-         //======== panel2 ========
+         // ======== panel2 ========
          {
-            panel2.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder
-                  (0, 0, 0, 0), "Teko\u006fla\u0069.github \u0045.\u0074io", javax.swing.border.TitledBorder.CENTER, javax.swing.border
-                  .TitledBorder.BOTTOM, new java.awt.Font("D\u0069alog", java.awt.Font.BOLD, 12), java.awt
-                  .Color.red), panel2.getBorder()));
+            panel2.setBorder(new javax.swing.border.CompoundBorder(
+                  new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "Teko\u006fla\u0069.github \u0045.\u0074io", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM,
+                        new java.awt.Font("D\u0069alog", java.awt.Font.BOLD, 12), java.awt.Color.red),
+                  panel2.getBorder()));
 
-            //======== panel10 ========
+            // ======== panel10 ========
             {
 
-               //======== scrollPane1 ========
+               // ======== scrollPane1 ========
                {
-                  //---- usrJT ----
+                  // ---- usrJT ----
                   usrJT.setModel(new DefaultTableModel(
-                        new Object[][]{
-                              {"1", null, null, null, "424", null, null, "242"},
-                              {"2", null, null, null, null, null, null, null},
-                              {"3", null, null, null, null, null, null, null},
-                              {"..", null, null, null, null, null, null, null},
-                              {"4", null, null, null, null, null, null, null},
-                              {"5", null, null, null, null, null, null, null},
+                        new Object[][] {
+                              { "1", null, null, null, "424", null, null, "242" },
+                              { "2", null, null, null, null, null, null, null },
+                              { "3", null, null, null, null, null, null, null },
+                              { "..", null, null, null, null, null, null, null },
+                              { "4", null, null, null, null, null, null, null },
+                              { "5", null, null, null, null, null, null, null },
                         },
-                        new String[]{
-                              "\u7528\u6237\u7f16\u53f7", "\u7528\u6237\u540d", "\u7528\u6237\u5bc6\u7801", "\u771f\u5b9e\u59d3\u540d", "\u8eab\u4efd\u8bc1\u53f7", "\u7535\u8bdd\u53f7\u7801", "\u76ee\u524d\u79df\u8f66\u6570\u91cf", "\u5386\u53f2\u79df\u8f66\u6570\u91cf"
-                        }
-                  ) {
-                     final boolean[] columnEditable = new boolean[]{
+                        new String[] {
+                              "\u7528\u6237\u7f16\u53f7", "\u7528\u6237\u540d", "\u7528\u6237\u5bc6\u7801",
+                              "\u771f\u5b9e\u59d3\u540d", "\u8eab\u4efd\u8bc1\u53f7", "\u7535\u8bdd\u53f7\u7801",
+                              "\u76ee\u524d\u79df\u8f66\u6570\u91cf", "\u5386\u53f2\u79df\u8f66\u6570\u91cf"
+                        }) {
+                     final boolean[] columnEditable = new boolean[] {
                            false, false, false, false, false, false, false, false
                      };
 
@@ -962,46 +977,44 @@ public class MainFrm extends JFrame {
                      panel10Layout.createParallelGroup()
                            .addGroup(panel10Layout.createSequentialGroup()
                                  .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
-                                 .addContainerGap())
-               );
+                                 .addContainerGap()));
                panel10Layout.setVerticalGroup(
                      panel10Layout.createParallelGroup()
-                           .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 487, GroupLayout.PREFERRED_SIZE)
-               );
+                           .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 487, GroupLayout.PREFERRED_SIZE));
             }
 
-            //======== panel11 ========
+            // ======== panel11 ========
             {
 
-               //---- idJL ----
+               // ---- idJL ----
                idJL.setText("\u7528\u6237\u7f16\u53f7\uff1a");
                idJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car1.png"))));
 
-               //---- nameJL ----
+               // ---- nameJL ----
                nameJL.setText("\u7528\u6237\u540d\uff1a");
                nameJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car2.png"))));
 
-               //---- passwordJL ----
+               // ---- passwordJL ----
                passwordJL.setText("\u7528\u6237\u5bc6\u7801\uff1a");
                passwordJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car3.png"))));
 
-               //---- rNameJL ----
+               // ---- rNameJL ----
                rNameJL.setText("\u771f\u5b9e\u59d3\u540d\uff1a");
                rNameJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car4.png"))));
 
-               //---- idcJL ----
+               // ---- idcJL ----
                idcJL.setText("\u8eab\u4efd\u8bc1\u53f7\uff1a");
                idcJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car5.png"))));
 
-               //---- telJL ----
+               // ---- telJL ----
                telJL.setText("\u7535\u8bdd\u53f7\u7801\uff1a");
                telJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car6.png"))));
 
-               //---- curJL ----
+               // ---- curJL ----
                curJL.setText("\u76ee\u524d\u79df\u8f66\u6570\u91cf\uff1a");
                curJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/find.png"))));
 
-               //---- hisJL ----
+               // ---- hisJL ----
                hisJL.setText("\u5386\u53f2\u79df\u8f66\u6570\u91cf\uff1a");
                hisJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/cloud.png"))));
 
@@ -1032,87 +1045,98 @@ public class MainFrm extends JFrame {
                                        .addGroup(GroupLayout.Alignment.TRAILING, panel11Layout.createSequentialGroup()
                                              .addGap(0, 0, Short.MAX_VALUE)
                                              .addGroup(panel11Layout.createParallelGroup()
-                                                   .addComponent(passwordJTF, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-                                                   .addComponent(idJTF, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-                                                   .addComponent(nameJTF, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
+                                                   .addComponent(passwordJTF, GroupLayout.PREFERRED_SIZE, 177,
+                                                         GroupLayout.PREFERRED_SIZE)
+                                                   .addComponent(idJTF, GroupLayout.PREFERRED_SIZE, 177,
+                                                         GroupLayout.PREFERRED_SIZE)
+                                                   .addComponent(nameJTF, GroupLayout.PREFERRED_SIZE, 177,
+                                                         GroupLayout.PREFERRED_SIZE))
                                              .addGap(26, 26, 26))
                                        .addGroup(panel11Layout.createSequentialGroup()
                                              .addGap(175, 175, 175)
                                              .addGroup(panel11Layout.createParallelGroup()
                                                    .addComponent(idcJTF)
                                                    .addGroup(panel11Layout.createSequentialGroup()
-                                                         .addComponent(rNameJTF, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+                                                         .addComponent(rNameJTF, GroupLayout.PREFERRED_SIZE, 177,
+                                                               GroupLayout.PREFERRED_SIZE)
                                                          .addGap(0, 0, Short.MAX_VALUE))
                                                    .addComponent(telJTF))
-                                             .addContainerGap())))
-               );
+                                             .addContainerGap()))));
                panel11Layout.setVerticalGroup(
                      panel11Layout.createParallelGroup()
                            .addGroup(panel11Layout.createSequentialGroup()
                                  .addGroup(panel11Layout.createParallelGroup()
                                        .addGroup(panel11Layout.createSequentialGroup()
                                              .addGap(14, 14, 14)
-                                             .addComponent(idJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                             .addComponent(idJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                   GroupLayout.PREFERRED_SIZE))
                                        .addGroup(panel11Layout.createSequentialGroup()
                                              .addContainerGap()
                                              .addComponent(idJL)))
-                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+                                       Short.MAX_VALUE)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(nameJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(nameJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(nameJL))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(passwordJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(passwordJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(passwordJL))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(rNameJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(rNameJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(rNameJL))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(idcJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(idcJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(idcJL))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(telJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(telJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(telJL))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(curJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(curJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(curJL))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel11Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                       .addComponent(hisJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(hisJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(hisJL))
-                                 .addGap(15, 15, 15))
-               );
+                                 .addGap(15, 15, 15)));
             }
 
-            //---- resetJB ----
+            // ---- resetJB ----
             resetJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/reset.png"))));
             resetJB.addActionListener(this::resetJBActionPerformed);
 
-            //---- modifyJB ----
+            // ---- modifyJB ----
             modifyJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/edit.png"))));
             modifyJB.setMaximumSize(new Dimension(78, 40));
             modifyJB.setMinimumSize(new Dimension(78, 40));
             modifyJB.addActionListener(e -> MainFrm.this.modifyJBActionPerformed());
 
-            //---- removeJB ----
+            // ---- removeJB ----
             removeJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/delete.png"))));
             removeJB.setMaximumSize(new Dimension(78, 40));
             removeJB.setMinimumSize(new Dimension(78, 40));
             removeJB.addActionListener(MainFrm.this::removeJBActionPerformed);
 
-            //---- title1JL ----
+            // ---- title1JL ----
             title1JL.setText("  ======\u7528\u6237\u7ba1\u7406======");
 
-            //---- addJB ----
+            // ---- addJB ----
             addJB.setText("\u65b0\u589e\u7528\u6237");
             addJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/add.png"))));
             addJB.addActionListener(MainFrm.this::addJBActionPerformed);
 
-            //---- findJB ----
+            // ---- findJB ----
             findJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/find.png"))));
             findJB.setMaximumSize(new Dimension(78, 40));
             findJB.setMinimumSize(new Dimension(78, 40));
@@ -1124,76 +1148,90 @@ public class MainFrm extends JFrame {
                   panel2Layout.createParallelGroup()
                         .addGroup(panel2Layout.createSequentialGroup()
                               .addContainerGap()
-                              .addComponent(panel10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                              .addComponent(panel10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                               .addGroup(panel2Layout.createParallelGroup()
                                     .addGroup(panel2Layout.createSequentialGroup()
                                           .addGap(6, 6, 6)
-                                          .addComponent(resetJB, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(resetJB, GroupLayout.PREFERRED_SIZE, 85,
+                                                GroupLayout.PREFERRED_SIZE)
                                           .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                          .addComponent(findJB, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-                                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                          .addComponent(modifyJB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(findJB, GroupLayout.PREFERRED_SIZE, 84,
+                                                GroupLayout.PREFERRED_SIZE)
+                                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                          .addComponent(modifyJB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)
                                           .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                          .addComponent(removeJB, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(removeJB, GroupLayout.PREFERRED_SIZE, 79,
+                                                GroupLayout.PREFERRED_SIZE)
                                           .addGap(26, 26, 26))
                                     .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                                          .addComponent(title1JL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                          .addComponent(title1JL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                Short.MAX_VALUE)
                                           .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                          .addComponent(addJB, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
+                                          .addComponent(addJB, GroupLayout.PREFERRED_SIZE, 176,
+                                                GroupLayout.PREFERRED_SIZE))
                                     .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                                           .addGap(0, 0, Short.MAX_VALUE)
-                                          .addComponent(panel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                              .addContainerGap())
-            );
+                                          .addComponent(panel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)))
+                              .addContainerGap()));
             panel2Layout.linkSize(SwingConstants.HORIZONTAL, findJB, modifyJB, removeJB, resetJB);
             panel2Layout.setVerticalGroup(
                   panel2Layout.createParallelGroup()
                         .addGroup(panel2Layout.createSequentialGroup()
                               .addGap(14, 14, 14)
                               .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(title1JL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(title1JL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          Short.MAX_VALUE)
                                     .addComponent(addJB))
                               .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                              .addComponent(panel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                              .addComponent(panel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                               .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(resetJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                     .addGroup(panel2Layout.createSequentialGroup()
                                           .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(modifyJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(removeJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(findJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(modifyJB, GroupLayout.PREFERRED_SIZE, 46,
+                                                      GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(removeJB, GroupLayout.PREFERRED_SIZE, 46,
+                                                      GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(findJB, GroupLayout.PREFERRED_SIZE, 46,
+                                                      GroupLayout.PREFERRED_SIZE))
                                           .addGap(0, 0, Short.MAX_VALUE)))
                               .addContainerGap())
                         .addGroup(panel2Layout.createSequentialGroup()
-                              .addComponent(panel10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 0, Short.MAX_VALUE))
-            );
+                              .addComponent(panel10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    GroupLayout.PREFERRED_SIZE)
+                              .addGap(0, 0, Short.MAX_VALUE)));
             panel2Layout.linkSize(SwingConstants.VERTICAL, findJB, modifyJB, removeJB, resetJB);
          }
          tabbedPane1.addTab("\u7528\u6237\u7ba1\u7406", panel2);
 
-         //======== panel3 ========
+         // ======== panel3 ========
          {
 
-            //======== panel12 ========
+            // ======== panel12 ========
             {
 
-               //======== scrollPane4 ========
+               // ======== scrollPane4 ========
                {
 
-                  //---- carJT ----
+                  // ---- carJT ----
                   carJT.setModel(new DefaultTableModel(
-                        new Object[][]{
-                              {"1", "\u7ecf\u6d4e\u578b", null, null, null, null, "0", null, null, null, "1"},
-                              {"1", "SUV", null, null, null, null, "1", "11", null, null, "-1"},
+                        new Object[][] {
+                              { "1", "\u7ecf\u6d4e\u578b", null, null, null, null, "0", null, null, null, "1" },
+                              { "1", "SUV", null, null, null, null, "1", "11", null, null, "-1" },
                         },
-                        new String[]{
-                              "\u8f66\u8f86\u7f16\u53f7", "\u7c7b\u578b", "\u8f66\u724c\u53f7", "\u54c1\u724c", "\u8f66\u578b", "\u5ea7\u6570", "\u81ea\u52a8\u6863", "\u6392\u91cf", "\u989c\u8272", "\u65e5\u79df\u91d1", "\u72b6\u6001"
-                        }
-                  ) {
-                     final boolean[] columnEditable = new boolean[]{
+                        new String[] {
+                              "\u8f66\u8f86\u7f16\u53f7", "\u7c7b\u578b", "\u8f66\u724c\u53f7", "\u54c1\u724c",
+                              "\u8f66\u578b", "\u5ea7\u6570", "\u81ea\u52a8\u6863", "\u6392\u91cf", "\u989c\u8272",
+                              "\u65e5\u79df\u91d1", "\u72b6\u6001"
+                        }) {
+                     final boolean[] columnEditable = new boolean[] {
                            false, false, false, false, false, false, false, false, false, false, false
                      };
 
@@ -1215,69 +1253,67 @@ public class MainFrm extends JFrame {
                panel12.setLayout(panel12Layout);
                panel12Layout.setHorizontalGroup(
                      panel12Layout.createParallelGroup()
-                           .addComponent(scrollPane4, GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
-               );
+                           .addComponent(scrollPane4, GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE));
                panel12Layout.setVerticalGroup(
                      panel12Layout.createParallelGroup()
-                           .addComponent(scrollPane4, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
-               );
+                           .addComponent(scrollPane4, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE));
             }
 
-            //======== panel13 ========
+            // ======== panel13 ========
             {
 
-               //---- title2JL ----
+               // ---- title2JL ----
                title2JL.setText("  ======\u8f66\u8f86\u7ba1\u7406======");
 
-               //---- addCarJB ----
+               // ---- addCarJB ----
                addCarJB.setText("\u65b0\u589e\u8f66\u8f86");
                addCarJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/add.png"))));
                addCarJB.addActionListener(MainFrm.this::addCarJBActionPerformed);
 
-               //---- carIDJL ----
+               // ---- carIDJL ----
                carIDJL.setText("\u8f66\u8f86\u7f16\u53f7\uff1a");
 
-               //---- carTypeJL ----
+               // ---- carTypeJL ----
                carTypeJL.setText("\u8f66\u8f86\u7c7b\u578b\uff1a");
 
-               //---- carLicenceJL ----
+               // ---- carLicenceJL ----
                carLicenceJL.setText("\u8f66\u724c\u53f7\uff1a");
 
-               //---- carBrandJL ----
+               // ---- carBrandJL ----
                carBrandJL.setText("\u8f66\u8f86\u54c1\u724c\uff1a");
 
-               //---- carSizeJL ----
+               // ---- carSizeJL ----
                carSizeJL.setText("\u8f66\u8f86\u578b\u53f7\uff1a");
 
-               //---- carSeatNumJL ----
+               // ---- carSeatNumJL ----
                carSeatNumJL.setText("\u5ea7\u6570\uff1a");
 
-               //---- carTonsJL ----
+               // ---- carTonsJL ----
                carTonsJL.setText("\u6392\u91cf\uff1a");
 
-               //---- carColorJL ----
+               // ---- carColorJL ----
                carColorJL.setText("\u989c\u8272\uff1a");
 
-               //---- carFeeJL ----
+               // ---- carFeeJL ----
                carFeeJL.setText("\u65e5\u79df\u91d1\uff1a");
 
-               //---- carStatusJL ----
+               // ---- carStatusJL ----
                carStatusJL.setText("\u72b6\u6001\uff1a");
 
-               //---- carIsAutoJChB ----
+               // ---- carIsAutoJChB ----
                carIsAutoJChB.setText("\u81ea\u52a8\u6863");
                carIsAutoJChB.setSelected(true);
 
-               //---- carStatusJCB ----
-               carStatusJCB.setModel(new DefaultComboBoxModel<>(new String[]{
+               // ---- carStatusJCB ----
+               carStatusJCB.setModel(new DefaultComboBoxModel<>(new String[] {
                      "\u8bf7\u9009\u62e9..",
                      "\u53ef\u79df",
                      "\u5df2\u79df\u672a\u8fd8",
                      "\u7ef4\u4fee\u4e2d"
                }));
 
-               //---- carColorJCB ----
-               carColorJCB.setModel(new DefaultComboBoxModel<>(new String[]{
+               // ---- carColorJCB ----
+               carColorJCB.setModel(new DefaultComboBoxModel<>(new String[] {
                      "\u8bf7\u9009\u62e9..",
                      "\u7ea2\u8272",
                      "\u767d\u8272",
@@ -1289,8 +1325,8 @@ public class MainFrm extends JFrame {
                      "\u7d2b\u8272"
                }));
 
-               //---- carTypeJCB ----
-               carTypeJCB.setModel(new DefaultComboBoxModel<>(new String[]{
+               // ---- carTypeJCB ----
+               carTypeJCB.setModel(new DefaultComboBoxModel<>(new String[] {
                      "\u8bf7\u9009\u62e9..",
                      "\u7ecf\u6d4e\u578b",
                      "\u8212\u9002\u578b",
@@ -1300,23 +1336,23 @@ public class MainFrm extends JFrame {
                      "\u9ad8\u7aef\u8f66"
                }));
 
-               //---- resetCarJB ----
+               // ---- resetCarJB ----
                resetCarJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/reset.png"))));
                resetCarJB.addActionListener(MainFrm.this::resetCarJBActionPerformed);
 
-               //---- findCarJB ----
+               // ---- findCarJB ----
                findCarJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/find.png"))));
                findCarJB.setMaximumSize(new Dimension(78, 40));
                findCarJB.setMinimumSize(new Dimension(78, 40));
                findCarJB.addActionListener(MainFrm.this::findCarJBActionPerformed);
 
-               //---- modifyCarJB ----
+               // ---- modifyCarJB ----
                modifyCarJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/edit.png"))));
                modifyCarJB.setMaximumSize(new Dimension(78, 40));
                modifyCarJB.setMinimumSize(new Dimension(78, 40));
                modifyCarJB.addActionListener(MainFrm.this::modifyCarJBActionPerformed);
 
-               //---- removeCarJB ----
+               // ---- removeCarJB ----
                removeCarJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/delete.png"))));
                removeCarJB.setMaximumSize(new Dimension(78, 40));
                removeCarJB.setMinimumSize(new Dimension(78, 40));
@@ -1340,71 +1376,114 @@ public class MainFrm extends JFrame {
                                                                .addGroup(panel13Layout.createSequentialGroup()
                                                                      .addComponent(carSeatNumJL)
                                                                      .addGap(18, 18, 18)
-                                                                     .addComponent(carSeatNumJTF, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+                                                                     .addComponent(carSeatNumJTF,
+                                                                           GroupLayout.PREFERRED_SIZE, 128,
+                                                                           GroupLayout.PREFERRED_SIZE))
                                                                .addGroup(panel13Layout.createSequentialGroup()
                                                                      .addComponent(carIDJL)
-                                                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                     .addComponent(carIDJTF, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+                                                                     .addPreferredGap(
+                                                                           LayoutStyle.ComponentPlacement.RELATED)
+                                                                     .addComponent(carIDJTF, GroupLayout.PREFERRED_SIZE,
+                                                                           95, GroupLayout.PREFERRED_SIZE))
                                                                .addGroup(panel13Layout.createSequentialGroup()
                                                                      .addComponent(carTonsJL)
                                                                      .addGap(18, 18, 18)
-                                                                     .addComponent(carTonsJTF, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+                                                                     .addComponent(carTonsJTF,
+                                                                           GroupLayout.PREFERRED_SIZE, 127,
+                                                                           GroupLayout.PREFERRED_SIZE))
                                                                .addGroup(panel13Layout.createSequentialGroup()
                                                                      .addComponent(carColorJL)
                                                                      .addGap(18, 18, 18)
-                                                                     .addComponent(carColorJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                     .addComponent(carColorJCB,
+                                                                           GroupLayout.PREFERRED_SIZE,
+                                                                           GroupLayout.DEFAULT_SIZE,
+                                                                           GroupLayout.PREFERRED_SIZE)))
                                                          .addGroup(panel13Layout.createParallelGroup()
-                                                               .addGroup(GroupLayout.Alignment.TRAILING, panel13Layout.createSequentialGroup()
-                                                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                     .addComponent(carIsAutoJChB, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                                               .addGroup(GroupLayout.Alignment.TRAILING, panel13Layout
+                                                                     .createSequentialGroup()
+                                                                     .addPreferredGap(
+                                                                           LayoutStyle.ComponentPlacement.RELATED,
+                                                                           GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                     .addComponent(carIsAutoJChB,
+                                                                           GroupLayout.PREFERRED_SIZE, 88,
+                                                                           GroupLayout.PREFERRED_SIZE)
                                                                      .addGap(59, 59, 59))
                                                                .addGroup(panel13Layout.createSequentialGroup()
-                                                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                     .addPreferredGap(
+                                                                           LayoutStyle.ComponentPlacement.RELATED)
                                                                      .addGroup(panel13Layout.createParallelGroup()
-                                                                           .addGroup(panel13Layout.createSequentialGroup()
+                                                                           .addGroup(panel13Layout
+                                                                                 .createSequentialGroup()
                                                                                  .addComponent(carTypeJL)
-                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                                 .addComponent(carTypeJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                                                           .addGroup(panel13Layout.createSequentialGroup()
+                                                                                 .addPreferredGap(
+                                                                                       LayoutStyle.ComponentPlacement.RELATED)
+                                                                                 .addComponent(carTypeJCB,
+                                                                                       GroupLayout.PREFERRED_SIZE,
+                                                                                       GroupLayout.DEFAULT_SIZE,
+                                                                                       GroupLayout.PREFERRED_SIZE))
+                                                                           .addGroup(panel13Layout
+                                                                                 .createSequentialGroup()
                                                                                  .addGap(6, 6, 6)
                                                                                  .addComponent(carStatusJL)
                                                                                  .addGap(18, 18, 18)
-                                                                                 .addComponent(carStatusJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                                                 .addComponent(carStatusJCB,
+                                                                                       GroupLayout.PREFERRED_SIZE,
+                                                                                       GroupLayout.DEFAULT_SIZE,
+                                                                                       GroupLayout.PREFERRED_SIZE)))
                                                                      .addGap(0, 0, Short.MAX_VALUE))
                                                                .addGroup(panel13Layout.createSequentialGroup()
                                                                      .addGap(25, 25, 25)
                                                                      .addComponent(carFeeJL)
-                                                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                     .addPreferredGap(
+                                                                           LayoutStyle.ComponentPlacement.RELATED)
                                                                      .addComponent(carFeeJTF))))
                                                    .addGroup(panel13Layout.createSequentialGroup()
                                                          .addGroup(panel13Layout.createParallelGroup()
                                                                .addGroup(panel13Layout.createSequentialGroup()
                                                                      .addGroup(panel13Layout.createParallelGroup()
-                                                                           .addGroup(GroupLayout.Alignment.TRAILING, panel13Layout.createSequentialGroup()
-                                                                                 .addComponent(carBrandJL)
-                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED))
-                                                                           .addGroup(panel13Layout.createSequentialGroup()
-                                                                                 .addComponent(carLicenceJL)
-                                                                                 .addGap(27, 27, 27)))
-                                                                     .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                                           .addComponent(carLicenseJTF, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                                                                           .addComponent(carBrandJTF, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
+                                                                           .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                                 panel13Layout.createSequentialGroup()
+                                                                                       .addComponent(carBrandJL)
+                                                                                       .addPreferredGap(
+                                                                                             LayoutStyle.ComponentPlacement.UNRELATED))
+                                                                           .addGroup(
+                                                                                 panel13Layout.createSequentialGroup()
+                                                                                       .addComponent(carLicenceJL)
+                                                                                       .addGap(27, 27, 27)))
+                                                                     .addGroup(panel13Layout
+                                                                           .createParallelGroup(
+                                                                                 GroupLayout.Alignment.TRAILING, false)
+                                                                           .addComponent(carLicenseJTF,
+                                                                                 GroupLayout.DEFAULT_SIZE, 239,
+                                                                                 Short.MAX_VALUE)
+                                                                           .addComponent(carBrandJTF,
+                                                                                 GroupLayout.DEFAULT_SIZE, 239,
+                                                                                 Short.MAX_VALUE)))
                                                                .addGroup(panel13Layout.createSequentialGroup()
-                                                                     .addComponent(resetCarJB, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                                                                     .addComponent(resetCarJB,
+                                                                           GroupLayout.PREFERRED_SIZE, 85,
+                                                                           GroupLayout.PREFERRED_SIZE)
                                                                      .addGap(12, 12, 12)
-                                                                     .addComponent(findCarJB, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                                                                     .addComponent(findCarJB,
+                                                                           GroupLayout.PREFERRED_SIZE, 85,
+                                                                           GroupLayout.PREFERRED_SIZE)
                                                                      .addGap(6, 6, 6)
-                                                                     .addComponent(modifyCarJB, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                                                                     .addComponent(modifyCarJB,
+                                                                           GroupLayout.PREFERRED_SIZE, 85,
+                                                                           GroupLayout.PREFERRED_SIZE)
                                                                      .addGap(12, 12, 12)
-                                                                     .addComponent(removeCarJB, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
+                                                                     .addComponent(removeCarJB,
+                                                                           GroupLayout.PREFERRED_SIZE, 85,
+                                                                           GroupLayout.PREFERRED_SIZE)))
                                                          .addGap(0, 0, Short.MAX_VALUE))))
                                        .addGroup(panel13Layout.createSequentialGroup()
                                              .addContainerGap()
-                                             .addComponent(title2JL, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(title2JL, GroupLayout.PREFERRED_SIZE, 202,
+                                                   GroupLayout.PREFERRED_SIZE)
                                              .addGap(18, 18, 18)
-                                             .addComponent(addCarJB, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)))
-                                 .addGap(15, 15, 15))
-               );
+                                             .addComponent(addCarJB, GroupLayout.PREFERRED_SIZE, 173,
+                                                   GroupLayout.PREFERRED_SIZE)))
+                                 .addGap(15, 15, 15)));
                panel13Layout.setVerticalGroup(
                      panel13Layout.createParallelGroup()
                            .addGroup(panel13Layout.createSequentialGroup()
@@ -1417,45 +1496,58 @@ public class MainFrm extends JFrame {
                                        .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                              .addComponent(carIDJL)
                                              .addComponent(carTypeJL)
-                                             .addComponent(carIDJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                       .addComponent(carTypeJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                             .addComponent(carIDJTF, GroupLayout.PREFERRED_SIZE,
+                                                   GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carTypeJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                        .addComponent(carLicenceJL)
-                                       .addComponent(carLicenseJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carLicenseJTF, GroupLayout.PREFERRED_SIZE,
+                                             GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                  .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                  .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                        .addComponent(carBrandJL)
-                                       .addComponent(carBrandJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carBrandJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                        .addComponent(carSizeJL)
-                                       .addComponent(carSizeJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carSizeJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                        .addComponent(carSeatNumJL)
                                        .addComponent(carIsAutoJChB)
-                                       .addComponent(carSeatNumJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carSeatNumJTF, GroupLayout.PREFERRED_SIZE,
+                                             GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                  .addGap(28, 28, 28)
                                  .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                        .addComponent(carTonsJL)
-                                       .addComponent(carTonsJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(carTonsJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addComponent(carFeeJL)
-                                       .addComponent(carFeeJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carFeeJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE))
                                  .addGap(18, 18, 18)
                                  .addGroup(panel13Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                        .addComponent(carColorJL)
                                        .addComponent(carStatusJL)
-                                       .addComponent(carStatusJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                       .addComponent(carColorJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(carStatusJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(carColorJCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.PREFERRED_SIZE))
                                  .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                  .addGroup(panel13Layout.createParallelGroup()
-                                       .addComponent(resetCarJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                       .addComponent(findCarJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                       .addComponent(modifyCarJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                       .addComponent(removeCarJB, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-                                 .addGap(20, 20, 20))
-               );
+                                       .addComponent(resetCarJB, GroupLayout.PREFERRED_SIZE, 46,
+                                             GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(findCarJB, GroupLayout.PREFERRED_SIZE, 46,
+                                             GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(modifyCarJB, GroupLayout.PREFERRED_SIZE, 46,
+                                             GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(removeCarJB, GroupLayout.PREFERRED_SIZE, 46,
+                                             GroupLayout.PREFERRED_SIZE))
+                                 .addGap(20, 20, 20)));
             }
 
             GroupLayout panel3Layout = new GroupLayout(panel3);
@@ -1464,40 +1556,43 @@ public class MainFrm extends JFrame {
                   panel3Layout.createParallelGroup()
                         .addGroup(panel3Layout.createSequentialGroup()
                               .addContainerGap()
-                              .addComponent(panel12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                              .addComponent(panel12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(panel13, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addGap(16, 16, 16))
-            );
+                              .addComponent(panel13, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    Short.MAX_VALUE)
+                              .addGap(16, 16, 16)));
             panel3Layout.setVerticalGroup(
                   panel3Layout.createParallelGroup()
                         .addGroup(panel3Layout.createSequentialGroup()
                               .addContainerGap()
                               .addGroup(panel3Layout.createParallelGroup()
-                                    .addComponent(panel12, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panel13, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addContainerGap())
-            );
+                                    .addComponent(panel12, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          Short.MAX_VALUE)
+                                    .addComponent(panel13, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          Short.MAX_VALUE))
+                              .addContainerGap()));
          }
          tabbedPane1.addTab("\u8f66\u8f86\u7ba1\u7406", panel3);
 
-         //======== panel5 ========
+         // ======== panel5 ========
          {
 
-            //======== scrollPane5 ========
+            // ======== scrollPane5 ========
             {
 
-               //---- toFixJT ----
+               // ---- toFixJT ----
                toFixJT.setModel(new DefaultTableModel(
-                     new Object[][]{
-                           {null, null, null, null, null, null, null},
-                           {null, null, null, null, null, null, null},
+                     new Object[][] {
+                           { null, null, null, null, null, null, null },
+                           { null, null, null, null, null, null, null },
                      },
-                     new String[]{
-                           "\u7f16\u53f7", "\u8f66\u8f86\u7f16\u53f7", "\u7ba1\u7406\u5458\u7f16\u53f7", "\u6545\u969c\u63cf\u8ff0", "\u9001\u4fee\u65e5\u671f", "\u8fd4\u8fd8\u65e5\u671f", "\u603b\u82b1\u8d39"
-                     }
-               ) {
-                  final boolean[] columnEditable = new boolean[]{
+                     new String[] {
+                           "\u7f16\u53f7", "\u8f66\u8f86\u7f16\u53f7", "\u7ba1\u7406\u5458\u7f16\u53f7",
+                           "\u6545\u969c\u63cf\u8ff0", "\u9001\u4fee\u65e5\u671f", "\u8fd4\u8fd8\u65e5\u671f",
+                           "\u603b\u82b1\u8d39"
+                     }) {
+                  final boolean[] columnEditable = new boolean[] {
                         false, false, false, true, true, true, true
                   };
 
@@ -1515,28 +1610,28 @@ public class MainFrm extends JFrame {
                scrollPane5.setViewportView(toFixJT);
             }
 
-            //======== panel14 ========
+            // ======== panel14 ========
             {
 
-               //---- maintainMessageJL ----
+               // ---- maintainMessageJL ----
                maintainMessageJL.setText("\u7ef4\u4fee\u4fe1\u606f:");
 
-               //---- maintainCostJL ----
+               // ---- maintainCostJL ----
                maintainCostJL.setText("\u7ef4\u4fee\u82b1\u8d39:");
 
-               //---- maintainCntJL ----
+               // ---- maintainCntJL ----
                maintainCntJL.setText("\u7ef4\u4fee\u6b21\u6570:");
 
-               //---- maintainCntJTF ----
+               // ---- maintainCntJTF ----
                maintainCntJTF.setEditable(false);
 
-               //---- rentedCntJL ----
+               // ---- rentedCntJL ----
                rentedCntJL.setText("\u88ab\u79df\u8d41\u6b21\u6570:");
 
-               //---- rentedCntJTF ----
+               // ---- rentedCntJTF ----
                rentedCntJTF.setEditable(false);
 
-               //---- maintainJB ----
+               // ---- maintainJB ----
                maintainJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/return.png"))));
                maintainJB.addActionListener(MainFrm.this::maintainJBActionPerformed);
 
@@ -1548,22 +1643,25 @@ public class MainFrm extends JFrame {
                                  .addContainerGap()
                                  .addGroup(panel14Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                        .addComponent(maintainCntJL, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                                       .addComponent(maintainMessageJL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                       .addComponent(maintainCostJL, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
+                                       .addComponent(maintainMessageJL, GroupLayout.DEFAULT_SIZE,
+                                             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                       .addComponent(maintainCostJL, GroupLayout.PREFERRED_SIZE, 77,
+                                             GroupLayout.PREFERRED_SIZE))
                                  .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                  .addGroup(panel14Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                        .addGroup(panel14Layout.createSequentialGroup()
-                                             .addComponent(maintainCntJTF, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(maintainCntJTF, GroupLayout.PREFERRED_SIZE, 116,
+                                                   GroupLayout.PREFERRED_SIZE)
                                              .addGap(18, 18, 18)
                                              .addComponent(rentedCntJL)
                                              .addGap(18, 18, 18)
-                                             .addComponent(rentedCntJTF, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+                                             .addComponent(rentedCntJTF, GroupLayout.DEFAULT_SIZE, 130,
+                                                   Short.MAX_VALUE))
                                        .addComponent(maintainMessageJTF)
                                        .addComponent(maintainCostJTF))
                                  .addGap(18, 18, 18)
                                  .addComponent(maintainJB, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-                                 .addContainerGap(35, Short.MAX_VALUE))
-               );
+                                 .addContainerGap(35, Short.MAX_VALUE)));
                panel14Layout.setVerticalGroup(
                      panel14Layout.createParallelGroup()
                            .addGroup(panel14Layout.createSequentialGroup()
@@ -1572,43 +1670,45 @@ public class MainFrm extends JFrame {
                                              .addContainerGap()
                                              .addGroup(panel14Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                    .addComponent(maintainMessageJL)
-                                                   .addComponent(maintainMessageJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                   .addComponent(maintainMessageJTF, GroupLayout.PREFERRED_SIZE,
+                                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                              .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                              .addGroup(panel14Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                    .addComponent(maintainCostJL)
-                                                   .addComponent(maintainCostJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                   .addComponent(maintainCostJTF, GroupLayout.PREFERRED_SIZE,
+                                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                              .addGap(18, 18, 18)
                                              .addGroup(panel14Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                    .addComponent(maintainCntJL)
-                                                   .addComponent(maintainCntJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                   .addComponent(maintainCntJTF, GroupLayout.PREFERRED_SIZE,
+                                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                    .addComponent(rentedCntJL)
-                                                   .addComponent(rentedCntJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                   .addComponent(rentedCntJTF, GroupLayout.PREFERRED_SIZE,
+                                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                        .addGroup(panel14Layout.createSequentialGroup()
                                              .addGap(20, 20, 20)
-                                             .addComponent(maintainJB, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
-                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               );
+                                             .addComponent(maintainJB, GroupLayout.PREFERRED_SIZE, 95,
+                                                   GroupLayout.PREFERRED_SIZE)))
+                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
             }
 
-            //======== panel15 ========
+            // ======== panel15 ========
             {
 
                GroupLayout panel15Layout = new GroupLayout(panel15);
                panel15.setLayout(panel15Layout);
                panel15Layout.setHorizontalGroup(
                      panel15Layout.createParallelGroup()
-                           .addGap(0, 0, Short.MAX_VALUE)
-               );
+                           .addGap(0, 0, Short.MAX_VALUE));
                panel15Layout.setVerticalGroup(
                      panel15Layout.createParallelGroup()
-                           .addGap(0, 0, Short.MAX_VALUE)
-               );
+                           .addGap(0, 0, Short.MAX_VALUE));
             }
 
-            //---- carPicJL ----
+            // ---- carPicJL ----
             carPicJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/car11.jpeg"))));
 
-            //---- titleJL ----
+            // ---- titleJL ----
             titleJL.setText("==== \u7ef4\u4fee\u62a5\u8868 ====");
 
             GroupLayout panel5Layout = new GroupLayout(panel5);
@@ -1617,13 +1717,16 @@ public class MainFrm extends JFrame {
                   panel5Layout.createParallelGroup()
                         .addGroup(panel5Layout.createSequentialGroup()
                               .addGap(157, 157, 157)
-                              .addComponent(carPicJL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(carPicJL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    Short.MAX_VALUE)
                               .addGroup(panel5Layout.createParallelGroup()
                                     .addGroup(panel5Layout.createSequentialGroup()
                                           .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                          .addComponent(panel15, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                          .addComponent(panel15, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                Short.MAX_VALUE)
                                           .addGap(91, 91, 91)
-                                          .addComponent(panel14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(panel14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)
                                           .addGap(217, 217, 217))
                                     .addGroup(panel5Layout.createSequentialGroup()
                                           .addGap(304, 304, 304)
@@ -1632,8 +1735,7 @@ public class MainFrm extends JFrame {
                         .addGroup(panel5Layout.createSequentialGroup()
                               .addContainerGap()
                               .addComponent(scrollPane5, GroupLayout.PREFERRED_SIZE, 1259, GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 0, Short.MAX_VALUE))
-            );
+                              .addGap(0, 0, Short.MAX_VALUE)));
             panel5Layout.setVerticalGroup(
                   panel5Layout.createParallelGroup()
                         .addGroup(panel5Layout.createSequentialGroup()
@@ -1641,38 +1743,43 @@ public class MainFrm extends JFrame {
                               .addGroup(panel5Layout.createParallelGroup()
                                     .addGroup(panel5Layout.createSequentialGroup()
                                           .addGap(81, 81, 81)
-                                          .addComponent(panel15, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                          .addComponent(panel15, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                Short.MAX_VALUE))
                                     .addGroup(panel5Layout.createSequentialGroup()
                                           .addGap(12, 12, 12)
-                                          .addComponent(carPicJL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                          .addComponent(carPicJL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                Short.MAX_VALUE))
                                     .addGroup(panel5Layout.createSequentialGroup()
-                                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                           .addComponent(titleJL)
                                           .addGap(18, 18, 18)
-                                          .addComponent(panel14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(panel14, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)
                                           .addGap(12, 12, 12)))
-                              .addContainerGap(22, Short.MAX_VALUE))
-            );
+                              .addContainerGap(22, Short.MAX_VALUE)));
          }
          tabbedPane1.addTab("\u7ef4\u4fee", panel5);
 
-         //======== panel6 ========
+         // ======== panel6 ========
          {
 
-            //======== scrollPane2 ========
+            // ======== scrollPane2 ========
             {
 
-               //---- rentedHisTable ----
+               // ---- rentedHisTable ----
                rentedHisTable.setModel(new DefaultTableModel(
-                     new Object[][]{
-                           {"0", null, "1", null, null, null, null, null, null, null, null, null},
-                           {null, null, "1", null, null, null, null, null, null, "21/09/02", null, null},
+                     new Object[][] {
+                           { "0", null, "1", null, null, null, null, null, null, null, null, null },
+                           { null, null, "1", null, null, null, null, null, null, "21/09/02", null, null },
                      },
-                     new String[]{
-                           "\u7528\u6237\u7f16\u53f7", "\u7528\u6237\u540d", "\u8f66\u8f86\u7f16\u53f7", "\u8f66\u8f86\u7c7b\u578b", "\u8f66\u8f86\u54c1\u724c", "\u8f66\u5ea7\u6570", "\u8f66\u724c\u53f7", "\u8f66\u8f86\u989c\u8272", "\u79df\u8f66\u65e5\u671f", "\u8fd8\u8f66\u65e5\u671f", "\u79df\u8d41\u5929\u6570", "\u603b\u79df\u91d1"
-                     }
-               ) {
-                  final boolean[] columnEditable = new boolean[]{
+                     new String[] {
+                           "\u7528\u6237\u7f16\u53f7", "\u7528\u6237\u540d", "\u8f66\u8f86\u7f16\u53f7",
+                           "\u8f66\u8f86\u7c7b\u578b", "\u8f66\u8f86\u54c1\u724c", "\u8f66\u5ea7\u6570",
+                           "\u8f66\u724c\u53f7", "\u8f66\u8f86\u989c\u8272", "\u79df\u8f66\u65e5\u671f",
+                           "\u8fd8\u8f66\u65e5\u671f", "\u79df\u8d41\u5929\u6570", "\u603b\u79df\u91d1"
+                     }) {
+                  final boolean[] columnEditable = new boolean[] {
                         true, true, false, false, false, false, false, false, false, false, false, false
                   };
 
@@ -1691,57 +1798,56 @@ public class MainFrm extends JFrame {
                         .addGroup(panel6Layout.createSequentialGroup()
                               .addContainerGap()
                               .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 1270, Short.MAX_VALUE)
-                              .addContainerGap())
-            );
+                              .addContainerGap()));
             panel6Layout.setVerticalGroup(
                   panel6Layout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, panel6Layout.createSequentialGroup()
                               .addContainerGap()
-                              .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
-            );
+                              .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)));
          }
          tabbedPane1.addTab("\u79df\u8d41\u5386\u53f2\u8bb0\u5f55\u8868", panel6);
 
-         //======== panel7 ========
+         // ======== panel7 ========
          {
 
-            //---- label6 ----
+            // ---- label6 ----
             label6.setText("\u4ece");
 
-            //---- label14 ----
+            // ---- label14 ----
             label14.setText("\u6b21, \u7ef4\u4fee\u8f66\u8f86");
 
-            //---- label15 ----
+            // ---- label15 ----
             label15.setText("\u6b21.");
 
-            //---- label16 ----
+            // ---- label16 ----
             label16.setText("\u603b\u5171\u82b1\u8d39\u4e86");
 
-            //---- label17 ----
+            // ---- label17 ----
             label17.setText(", \u51c0\u6536\u5165");
 
-            //---- label18 ----
+            // ---- label18 ----
             label18.setText(".");
 
-            //---- updateProfitJB ----
+            // ---- updateProfitJB ----
             updateProfitJB.setText("\u67e5\u8be2");
             updateProfitJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/idea.png"))));
             updateProfitJB.addActionListener(MainFrm.this::updateProfitJBActionPerformed);
 
-            //======== scrollPane6 ========
+            // ======== scrollPane6 ========
             {
 
-               //---- hisFixJT ----
+               // ---- hisFixJT ----
                hisFixJT.setModel(new DefaultTableModel(
-                     new Object[][]{
-                           {null, null, null, null, null, null, null},
-                           {null, null, null, null, null, null, null},
+                     new Object[][] {
+                           { null, null, null, null, null, null, null },
+                           { null, null, null, null, null, null, null },
                      },
-                     new String[]{
-                           "\u7f16\u53f7", "\u8f66\u8f86\u7f16\u53f7", "\u7ba1\u7406\u5458\u7f16\u53f7", "\u6545\u969c\u63cf\u8ff0", "\u9001\u4fee\u65e5\u671f", "\u8fd4\u8fd8\u65e5\u671f", "\u603b\u82b1\u8d39"
-                     }
-               ) {
-                  final boolean[] columnEditable = new boolean[]{
+                     new String[] {
+                           "\u7f16\u53f7", "\u8f66\u8f86\u7f16\u53f7", "\u7ba1\u7406\u5458\u7f16\u53f7",
+                           "\u6545\u969c\u63cf\u8ff0", "\u9001\u4fee\u65e5\u671f", "\u8fd4\u8fd8\u65e5\u671f",
+                           "\u603b\u82b1\u8d39"
+                     }) {
+                  final boolean[] columnEditable = new boolean[] {
                         false, false, false, true, true, true, true
                   };
 
@@ -1753,10 +1859,10 @@ public class MainFrm extends JFrame {
                scrollPane6.setViewportView(hisFixJT);
             }
 
-            //---- label19 ----
+            // ---- label19 ----
             label19.setText("\u5230");
 
-            //---- label20 ----
+            // ---- label20 ----
             label20.setText("\u7d2f\u8ba1\u79df\u51fa\u8f66\u8f86");
 
             GroupLayout panel7Layout = new GroupLayout(panel7);
@@ -1767,21 +1873,25 @@ public class MainFrm extends JFrame {
                               .addGroup(panel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel7Layout.createSequentialGroup()
                                           .addGap(18, 18, 18)
-                                          .addGroup(panel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(panel7Layout.createSequentialGroup()
-                                                      .addComponent(label16)
-                                                      .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                      .addComponent(totCostJTF, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-                                                      .addGap(18, 18, 18)
-                                                      .addComponent(label17))
-                                                .addGroup(panel7Layout.createSequentialGroup()
-                                                      .addComponent(label6, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-                                                      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                      .addComponent(stDateJTF)))
+                                          .addGroup(
+                                                panel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                      .addGroup(panel7Layout.createSequentialGroup()
+                                                            .addComponent(label16)
+                                                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                            .addComponent(totCostJTF, GroupLayout.PREFERRED_SIZE, 102,
+                                                                  GroupLayout.PREFERRED_SIZE)
+                                                            .addGap(18, 18, 18)
+                                                            .addComponent(label17))
+                                                      .addGroup(panel7Layout.createSequentialGroup()
+                                                            .addComponent(label6, GroupLayout.PREFERRED_SIZE, 34,
+                                                                  GroupLayout.PREFERRED_SIZE)
+                                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(stDateJTF)))
                                           .addGap(18, 18, 18)
                                           .addGroup(panel7Layout.createParallelGroup()
                                                 .addGroup(panel7Layout.createSequentialGroup()
-                                                      .addComponent(totProfitJTF, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                                                      .addComponent(totProfitJTF, GroupLayout.PREFERRED_SIZE, 130,
+                                                            GroupLayout.PREFERRED_SIZE)
                                                       .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                       .addComponent(label18))
                                                 .addGroup(panel7Layout.createSequentialGroup()
@@ -1790,15 +1900,20 @@ public class MainFrm extends JFrame {
                                           .addGap(18, 18, 18)
                                           .addGroup(panel7Layout.createParallelGroup()
                                                 .addGroup(panel7Layout.createSequentialGroup()
-                                                      .addComponent(edDateJTF, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
-                                                      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                      .addComponent(label20, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
+                                                      .addComponent(edDateJTF, GroupLayout.PREFERRED_SIZE, 301,
+                                                            GroupLayout.PREFERRED_SIZE)
+                                                      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                      .addComponent(label20, GroupLayout.PREFERRED_SIZE, 182,
+                                                            GroupLayout.PREFERRED_SIZE)
                                                       .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                      .addComponent(totRentedCarsJTF, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+                                                      .addComponent(totRentedCarsJTF, GroupLayout.PREFERRED_SIZE, 99,
+                                                            GroupLayout.PREFERRED_SIZE)
                                                       .addGap(18, 18, 18)
                                                       .addComponent(label14)
                                                       .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                      .addComponent(totFixedCarsNumJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                      .addComponent(totFixedCarsNumJTF, GroupLayout.PREFERRED_SIZE,
+                                                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                       .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                       .addComponent(label15))
                                                 .addGroup(panel7Layout.createSequentialGroup()
@@ -1807,9 +1922,9 @@ public class MainFrm extends JFrame {
                                                       .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(panel7Layout.createSequentialGroup()
                                           .addContainerGap()
-                                          .addComponent(scrollPane6, GroupLayout.PREFERRED_SIZE, 1259, GroupLayout.PREFERRED_SIZE)))
-                              .addContainerGap(11, Short.MAX_VALUE))
-            );
+                                          .addComponent(scrollPane6, GroupLayout.PREFERRED_SIZE, 1259,
+                                                GroupLayout.PREFERRED_SIZE)))
+                              .addContainerGap(11, Short.MAX_VALUE)));
             panel7Layout.setVerticalGroup(
                   panel7Layout.createParallelGroup()
                         .addGroup(panel7Layout.createSequentialGroup()
@@ -1819,47 +1934,52 @@ public class MainFrm extends JFrame {
                               .addGroup(panel7Layout.createParallelGroup()
                                     .addGroup(panel7Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                           .addComponent(label6)
-                                          .addComponent(stDateJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(stDateJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)
                                           .addComponent(label19)
-                                          .addComponent(edDateJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                          .addComponent(edDateJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panel7Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                           .addComponent(label14)
-                                          .addComponent(totFixedCarsNumJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                          .addComponent(totFixedCarsNumJTF, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                           .addComponent(label15)
                                           .addComponent(label20)
-                                          .addComponent(totRentedCarsJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                          .addComponent(totRentedCarsJTF, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                               .addGap(27, 27, 27)
                               .addGroup(panel7Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(label16)
-                                    .addComponent(totCostJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(totCostJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label17)
-                                    .addComponent(totProfitJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(totProfitJTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label18)
                                     .addComponent(updateProfitJB))
-                              .addContainerGap(51, Short.MAX_VALUE))
-            );
+                              .addContainerGap(51, Short.MAX_VALUE)));
          }
          tabbedPane1.addTab("\u7ef4\u4fee\u5386\u53f2\u8bb0\u5f55\u8868", panel7);
 
-         //======== panel9 ========
+         // ======== panel9 ========
          {
 
-            //======== aboutAuthorJP ========
+            // ======== aboutAuthorJP ========
             {
 
-               //---- link1JB ----
+               // ---- link1JB ----
                link1JB.setText("\u5173\u6ce8\u4f5c\u8005\u7684\u535a\u5ba2 teko7a.github.io");
                link1JB.addActionListener(MainFrm.this::link1JBActionPerformed);
 
-               //---- link2JB ----
+               // ---- link2JB ----
                link2JB.setText("\u5173\u6ce8\u4f5c\u8005\u7684BiliBili");
                link2JB.addActionListener(MainFrm.this::link2JBActionPerformed);
 
-               //---- madeWithJL ----
+               // ---- madeWithJL ----
                madeWithJL.setText("   Made With Java16");
                madeWithJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/java.png"))));
 
-               //---- picJL ----
+               // ---- picJL ----
                picJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/author.png"))));
 
                GroupLayout aboutAuthorJPLayout = new GroupLayout(aboutAuthorJP);
@@ -1869,18 +1989,21 @@ public class MainFrm extends JFrame {
                            .addGroup(GroupLayout.Alignment.TRAILING, aboutAuthorJPLayout.createSequentialGroup()
                                  .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                  .addGroup(aboutAuthorJPLayout.createParallelGroup()
-                                       .addComponent(link1JB, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
+                                       .addComponent(link1JB, GroupLayout.PREFERRED_SIZE, 318,
+                                             GroupLayout.PREFERRED_SIZE)
                                        .addGroup(aboutAuthorJPLayout.createSequentialGroup()
                                              .addGap(32, 32, 32)
-                                             .addComponent(picJL, GroupLayout.PREFERRED_SIZE, 207, GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(picJL, GroupLayout.PREFERRED_SIZE, 207,
+                                                   GroupLayout.PREFERRED_SIZE)
                                              .addGap(18, 18, 18)
                                              .addGroup(aboutAuthorJPLayout.createParallelGroup()
                                                    .addGroup(aboutAuthorJPLayout.createSequentialGroup()
                                                          .addGap(245, 245, 245)
-                                                         .addComponent(madeWithJL, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-                                                   .addComponent(link2JB, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))))
-                                 .addGap(143, 143, 143))
-               );
+                                                         .addComponent(madeWithJL, GroupLayout.PREFERRED_SIZE, 279,
+                                                               GroupLayout.PREFERRED_SIZE))
+                                                   .addComponent(link2JB, GroupLayout.PREFERRED_SIZE, 231,
+                                                         GroupLayout.PREFERRED_SIZE))))
+                                 .addGap(143, 143, 143)));
                aboutAuthorJPLayout.setVerticalGroup(
                      aboutAuthorJPLayout.createParallelGroup()
                            .addGroup(aboutAuthorJPLayout.createSequentialGroup()
@@ -1889,15 +2012,19 @@ public class MainFrm extends JFrame {
                                  .addGroup(aboutAuthorJPLayout.createParallelGroup()
                                        .addGroup(aboutAuthorJPLayout.createSequentialGroup()
                                              .addGap(66, 66, 66)
-                                             .addComponent(link2JB, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(link2JB, GroupLayout.PREFERRED_SIZE, 61,
+                                                   GroupLayout.PREFERRED_SIZE)
                                              .addGap(33, 33, 33)
-                                             .addComponent(madeWithJL, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(madeWithJL, GroupLayout.PREFERRED_SIZE, 78,
+                                                   GroupLayout.PREFERRED_SIZE)
                                              .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                       .addGroup(GroupLayout.Alignment.TRAILING, aboutAuthorJPLayout.createSequentialGroup()
-                                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                             .addComponent(picJL, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
-                                             .addGap(63, 63, 63))))
-               );
+                                       .addGroup(GroupLayout.Alignment.TRAILING,
+                                             aboutAuthorJPLayout.createSequentialGroup()
+                                                   .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                                         GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                   .addComponent(picJL, GroupLayout.PREFERRED_SIZE, 193,
+                                                         GroupLayout.PREFERRED_SIZE)
+                                                   .addGap(63, 63, 63)))));
             }
 
             GroupLayout panel9Layout = new GroupLayout(panel9);
@@ -1907,43 +2034,43 @@ public class MainFrm extends JFrame {
                         .addGroup(panel9Layout.createParallelGroup()
                               .addGroup(panel9Layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(aboutAuthorJP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aboutAuthorJP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(0, 1282, Short.MAX_VALUE)
-            );
+                        .addGap(0, 1282, Short.MAX_VALUE));
             panel9Layout.setVerticalGroup(
                   panel9Layout.createParallelGroup()
                         .addGroup(panel9Layout.createParallelGroup()
                               .addGroup(panel9Layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(aboutAuthorJP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aboutAuthorJP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                          GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(0, 497, Short.MAX_VALUE)
-            );
+                        .addGap(0, 497, Short.MAX_VALUE));
          }
          tabbedPane1.addTab("\u5173\u4e8e\u4f5c\u8005", panel9);
       }
 
-      //======== panel1 ========
+      // ======== panel1 ========
       {
 
-         //---- logoJL ----
+         // ---- logoJL ----
          logoJL.setText("    T-Rentor");
          logoJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/find.png"))));
 
-         //---- curUsrJL ----
+         // ---- curUsrJL ----
          curUsrJL.setText("\u5f53\u524d\u7ba1\u7406\u5458\uff1a");
          curUsrJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/manager.png"))));
 
-         //---- name_idJL ----
+         // ---- name_idJL ----
          name_idJL.setText("usrName(id : )");
 
-         //---- logoutJB ----
+         // ---- logoutJB ----
          logoutJB.setText("\u9000\u51fa\u767b\u5f55");
          logoutJB.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/exit.png"))));
          logoutJB.addActionListener(e -> MainFrm.this.logoutJBActionPerformed());
 
-         //---- todayJL ----
+         // ---- todayJL ----
          todayJL.setText("\u4eca\u5929\u662f:yy/MM/dd");
          todayJL.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/ballons.png"))));
 
@@ -1962,8 +2089,7 @@ public class MainFrm extends JFrame {
                            .addComponent(name_idJL, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
                            .addGap(55, 55, 55)
                            .addComponent(logoutJB)
-                           .addGap(129, 129, 129))
-         );
+                           .addGap(129, 129, 129)));
          panel1Layout.setVerticalGroup(
                panel1Layout.createParallelGroup()
                      .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
@@ -1978,8 +2104,7 @@ public class MainFrm extends JFrame {
                            .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                  .addComponent(logoJL, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
                                  .addComponent(todayJL))
-                           .addContainerGap(18, Short.MAX_VALUE))
-         );
+                           .addContainerGap(18, Short.MAX_VALUE)));
       }
 
       GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -1991,17 +2116,17 @@ public class MainFrm extends JFrame {
                         .addGroup(contentPaneLayout.createParallelGroup()
                               .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addComponent(tabbedPane1, GroupLayout.DEFAULT_SIZE, 1282, Short.MAX_VALUE))
-                        .addContainerGap())
-      );
+                        .addContainerGap()));
       contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                   .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                              GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+                              Short.MAX_VALUE)
                         .addComponent(tabbedPane1, GroupLayout.PREFERRED_SIZE, 529, GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))
-      );
+                        .addGap(47, 47, 47)));
       pack();
       setLocationRelativeTo(getOwner());
    }
