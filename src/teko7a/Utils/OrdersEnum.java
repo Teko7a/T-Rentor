@@ -6,6 +6,4 @@ package teko7a.Utils;
  * @author: tekola (teko7a@github.io)
  * @create 2021/9/2
  */
-public enum OrdersEnum {
-   ADD, DELETE, QUERY, MODIFY
-}
+public enum OrdersEnum { ADD, DELETE, QUERY, MODIFY }
