@@ -60,8 +60,6 @@ public class CarDAO {
       sb.append(" AND cost BETWEEN ").append(low).append(" AND ").append(high);
       sb.append(" AND status = '").append(car.getStatus()).append("'");
 
-      // TODO : 模糊查询失败 (08-26-21)
-//       System.out.println(sb.toString().replaceFirst("AND", "WHERE"));
       return con.prepareStatement(sb.toString().replaceFirst("AND", "WHERE")).executeQuery();
    }
 
