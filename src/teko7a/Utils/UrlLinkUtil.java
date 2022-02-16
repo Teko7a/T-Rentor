@@ -5,7 +5,6 @@ import org.junit.Test;
 /**
  * 用于开启网页的工具类
  *
- * @author: tekola (teko7a@github.io)
  * @create 2021/8/24
  */
 public class UrlLinkUtil {
@@ -19,8 +18,8 @@ public class UrlLinkUtil {
         // File file = new File("D:\\aa.txt");
         // dp.edit(file);// 　编辑文件
         dp.browse(uri); // 获取系统默认浏览器打开链接
-                        // dp.open(file);// 用默认方式打开文件
-                        // dp.print(file);// 用打印机打印文件
+        // dp.open(file);// 用默认方式打开文件
+        // dp.print(file);// 用打印机打印文件
       }
     } catch (NullPointerException e) {
       StringUtil.log("uri is empty!");

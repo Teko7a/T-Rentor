@@ -50,7 +50,9 @@ public class DateUtil {
     return getDelta(F, L) > 0;
   }
 
-  public static boolean isVaild(String F) { return getDelta(F) > 0; }
+  public static boolean isVaild(String F) {
+    return getDelta(F) > 0;
+  }
 
   /**
    * 简单的辅助内部类， 用于将日期与格式化的字符串对应
@@ -68,15 +70,15 @@ public class DateUtil {
     }
 
     public static int dayTH(String date) {
-      DateToInt __ = new DateToInt(date);
-      __.yy += 2000;
-      int[] dates = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+      DateToInt newDate = new DateToInt(date);
+      newDate.yy += 2000;
+      int[] dates = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
       int ans = 0;
-      for (int i = 1; i < __.mm; ++i)
+      for (int i = 1; i < newDate.mm; ++i)
         ans += dates[i];
-      ans += __.dd;
-      boolean check = __.yy % 4 == 0 && __.yy % 100 != 0 || __.yy % 400 == 0;
-      if (check && __.mm > 2)
+      ans += newDate.dd;
+      boolean check = newDate.yy % 4 == 0 && newDate.yy % 100 != 0 || newDate.yy % 400 == 0;
+      if (check && newDate.mm > 2)
         ans++;
       return ans;
     }
